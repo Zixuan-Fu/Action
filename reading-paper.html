@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="description" content="行则将至论文阅读库" /><title>reading-paper · 行则将至</title><link rel="stylesheet" href="assets/style.css" /></head>
+<body class="library-page">
+  <div class="grain" aria-hidden="true"></div>
+  <header class="site-header library-header"><a class="brand dark-brand" href="index.html"><span>行</span><small>则将</small><span>至</span></a><nav class="main-nav dark-nav" aria-label="主导航"><a class="active" href="reading-paper.html">reading-paper</a><a href="reading-other.html">reading-other</a><a href="https://zixuan-fu.github.io/" target="_blank" rel="noreferrer">anout me <i>↗</i></a></nav></header>
+  <main class="library-main section-shell">
+    <div class="library-intro"><div><p class="eyebrow dark-eyebrow">READING PAPER · KNOWLEDGE BASE</p><h1>论文阅读库<span class="title-dot">.</span></h1><p>把阅读变成可以回到、继续和连接的现场。</p></div><div class="library-count"><strong id="paperCount">03</strong><span>papers in motion</span></div></div>
+    <div class="toolbar"><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="搜索标题、作者或标签" /></label><div class="filter-tabs" role="tablist"><button class="filter-tab active" data-filter="all">全部</button><button class="filter-tab" data-filter="reading">在读</button><button class="filter-tab" data-filter="queued">待读</button><button class="filter-tab" data-filter="done">已读</button></div><button class="button button-dark add-button" id="openModal">+ 添加论文</button></div>
+    <section class="paper-layout"><div class="paper-list" id="paperList" aria-live="polite"></div><aside class="side-note"><span class="side-note-label">READING NOTE</span><p>“好的笔记不是把文章变短，而是让下一次思考从更远的地方开始。”</p><div class="side-line"></div><span class="side-meta">PERSONAL ARCHIVE / FZX</span></aside></section>
+    <section class="library-footer-note"><span>INDEX / 001—∞</span><p>灵感来自知识库的三层结构：<b>原始来源</b>、<b>整理后的知识</b>、<b>不断生长的连接</b>。</p></section>
+  </main>
+  <div class="modal-backdrop" id="paperModal" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="closeModal" aria-label="关闭">×</button><p class="eyebrow dark-eyebrow">NEW ENTRY</p><h2 id="modalTitle">加入一篇论文</h2><form id="paperForm"><label>标题<input required name="title" placeholder="例如：Attention Is All You Need" /></label><label>作者 / 年份<input name="meta" placeholder="Vaswani et al. · 2017" /></label><label>链接<input name="url" type="url" placeholder="https://arxiv.org/..." /></label><label>标签<input name="tags" placeholder="agent, reasoning, survey" /></label><label>一句话摘要<textarea name="summary" rows="3" placeholder="这篇论文最值得留下的是什么？"></textarea></label><div class="modal-actions"><button type="button" class="text-link dark-text" id="cancelModal">取消</button><button class="button button-dark" type="submit">保存论文 <span>→</span></button></div></form></div></div>
+  <script src="assets/app.js"></script>
+</body></html>
