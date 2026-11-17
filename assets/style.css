@@ -80,6 +80,11 @@
 .home-page .footer-word{color:#30372f}
 .home-page .site-footer a{color:#4d6043}
 
+/* Keep the reading surfaces on the same warm paper as the home page. */
+.library-page{background-color:#f6f4ed;background-image:linear-gradient(rgba(70,78,68,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(70,78,68,.045) 1px,transparent 1px);background-size:30px 30px;color:#252825}
+.library-page .library-header{border-bottom-color:rgba(37,40,37,.19)}
+.library-page .modal{background:#f6f4ed}
+
 /* The single character mark carries the page: give 行 the loose brush scale requested for the hero. */
 .brand>span:first-child{font-family:var(--xing-kai);font-size:1.45em;line-height:.72;letter-spacing:-.16em}
 .home-page .hero .eyebrow{font-family:var(--xing-kai);font-size:34px;line-height:1;letter-spacing:-.08em;color:#252b25}
