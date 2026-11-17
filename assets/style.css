@@ -77,3 +77,13 @@
 .home-page .site-footer{background:#f6f4ed;color:#5e685f;border-top:1px solid rgba(37,40,37,.16)}
 .home-page .footer-word{color:#30372f}
 .home-page .site-footer a{color:#4d6043}
+
+/* The single character mark carries the page: give 行 the loose brush scale requested for the hero. */
+.home-page .site-header .brand>span:first-child{font-family:var(--calli);font-size:1.45em;line-height:.72;letter-spacing:-.16em}
+.home-page .hero .eyebrow{font-family:var(--calli);font-size:34px;line-height:1;letter-spacing:-.08em;color:#252b25}
+.home-page .hero h1{display:flex;align-items:baseline;gap:.04em;white-space:nowrap}
+.home-page .hero-lead-char{font-family:var(--calli);font-size:1.62em;line-height:.72;letter-spacing:-.16em;display:inline-block;transform:translateY(.02em)}
+.home-page .hero-title-rest{font-family:var(--serif);font-size:.72em;letter-spacing:-.11em;color:#353b35}
+.home-page .hero-actions{margin-top:38px}
+.home-page .hero-actions .button{margin-right:0}
+@media(max-width:800px){.home-page .hero .eyebrow{font-size:30px}.home-page .hero h1{gap:.02em}.home-page .hero-lead-char{font-size:1.55em}.home-page .hero-title-rest{font-size:.7em}}
