@@ -90,3 +90,10 @@
 .home-page .hero-actions .button{margin-right:0}
 @media(max-width:800px){.home-page .hero .eyebrow{font-size:30px}.home-page .hero h1{gap:.02em}.home-page .hero-lead-char{font-size:1.55em}.home-page .hero-title-rest{font-size:.7em}}
 .footer-xing{font-family:var(--xing-kai);font-size:1.25em;line-height:.8}
+
+/* Typography adjustments: the title keeps a restrained regular kai form, while each board note has its own voice. */
+:root{--kai:'STKaiti','Kaiti SC','KaiTi','楷体',serif}
+.home-page .hero-title-rest{font-family:var(--kai);font-weight:400;letter-spacing:-.08em}
+.note-university .note-text{font-family:var(--xing-kai)!important;letter-spacing:-.08em}
+.note-knowledge .note-text{font-family:var(--kai)!important;font-weight:400;letter-spacing:-.06em}
+.note-world .note-text{font-family:var(--serif)!important;font-weight:500;letter-spacing:-.05em}
