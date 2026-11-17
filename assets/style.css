@@ -51,3 +51,29 @@
 .board-foot{height:32px;border-top:1px solid rgba(25,29,26,.28);justify-content:space-between}.board-foot a{color:#4d6439}
 @media(max-width:800px){.board-inner{padding:22px 22px 25px}.board-head span:last-child{display:none}.board-canvas{min-height:770px;background-size:22px 22px}.board-canvas:after{top:56%;transform:rotate(-11deg)}.board-arc{width:80%;height:38%;left:10%;top:34%}.arc-b{width:53%;height:80%;left:-15%;top:8%}.note-university{left:7%;top:9%;width:82%}.note-knowledge{left:14%;top:40%;width:82%}.note-world{right:7%;top:68%;width:82%}.ink-note[data-size="large"] .note-text{font-size:clamp(56px,16vw,86px)}.ink-note[data-size="medium"] .note-text,.ink-note[data-size="small"] .note-text{font-size:clamp(23px,6.2vw,31px)}.note-caption{font-size:8px}.board-signature{bottom:2%;font-size:21px}}
 @media(prefers-reduced-motion:reduce){.ink-note,.note-text,.note-caption,.note-rule,.board-signature{transition-duration:.01ms!important;transition-delay:0ms!important}}
+
+/* Light paper direction for the whole homepage. The reading board already uses this palette; these
+   overrides carry it through the hero so the page reads as one continuous Nature Will-inspired sheet. */
+.home-page{background-color:#f6f4ed;background-image:linear-gradient(rgba(70,78,68,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(70,78,68,.045) 1px,transparent 1px);background-size:30px 30px;color:#252825}
+.home-page .site-header{color:#252825}
+.home-page .brand{color:#252825}
+.home-page .brand small{color:#596056}
+.home-page .main-nav a{color:#4d554d}
+.home-page .main-nav a:hover,.home-page .main-nav a.active{color:#607344}
+.home-page .hero{background:rgba(246,244,237,.72);border-bottom-color:rgba(37,40,37,.19)}
+.home-page .eyebrow{color:#69746b}
+.home-page .hero h1{color:#242824;text-shadow:0 1px 0 rgba(255,255,255,.65)}
+.home-page .hero-subtitle{color:#30362f}
+.home-page .hero-intro{color:#667067}
+.home-page .button-light{background:#252a25;color:#f6f4ed}
+.home-page .text-link{color:#4c584d}
+.home-page .hero-index{color:#788277}
+.home-page .hero-index span{color:#929a91}
+.home-page .hero-empty{border-color:rgba(52,61,52,.25)}
+.home-page .hero-empty:before,.home-page .hero-empty:after{background:rgba(52,61,52,.35)}
+.home-page .hero-empty span{background:#839568}
+.home-page .hero-empty small{color:#7f887f}
+.home-page .particle-field{opacity:.2}
+.home-page .site-footer{background:#f6f4ed;color:#5e685f;border-top:1px solid rgba(37,40,37,.16)}
+.home-page .footer-word{color:#30372f}
+.home-page .site-footer a{color:#4d6043}
