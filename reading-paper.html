@@ -1,15 +1,74 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="description" content="行则将至论文阅读库" /><title>reading-paper · 行则将至</title><link rel="stylesheet" href="assets/style.css" /></head>
-<body class="library-page">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f6f4ed" />
+  <meta name="description" content="行则将至 · 论文、文章与阅读总结" />
+  <title>reading-paper · 行则将至</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/library.css" />
+</head>
+<body class="library-page library-database">
   <div class="grain" aria-hidden="true"></div>
-  <header class="site-header library-header"><a class="brand dark-brand" href="index.html" aria-label="行首页"><span>行</span></a><nav class="main-nav dark-nav" aria-label="主导航"><a class="active" href="reading-paper.html">reading-paper</a><a href="reading-other.html">reading-other</a><a href="https://zixuan-fu.github.io/" target="_blank" rel="noreferrer">about me <i>↗</i></a></nav></header>
-  <main class="library-main section-shell">
-    <div class="library-intro"><div><p class="eyebrow dark-eyebrow">READING PAPER · KNOWLEDGE BASE</p><h1>论文阅读库<span class="title-dot">.</span></h1><p>把阅读变成可以回到、继续和连接的现场。</p></div><div class="library-count"><strong id="paperCount">03</strong><span>papers in motion</span></div></div>
-    <div class="toolbar"><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="搜索标题、作者或标签" /></label><div class="filter-tabs" role="tablist"><button class="filter-tab active" data-filter="all">全部</button><button class="filter-tab" data-filter="reading">在读</button><button class="filter-tab" data-filter="queued">待读</button><button class="filter-tab" data-filter="done">已读</button></div><button class="button button-dark add-button" id="openModal">+ 添加论文</button></div>
-    <section class="paper-layout"><div class="paper-list" id="paperList" aria-live="polite"></div><aside class="side-note"><span class="side-note-label">READING NOTE</span><p>“好的笔记不是把文章变短，而是让下一次思考从更远的地方开始。”</p><div class="side-line"></div><span class="side-meta">PERSONAL ARCHIVE / FZX</span></aside></section>
-    <section class="library-footer-note"><span>INDEX / 001—∞</span><p>灵感来自知识库的三层结构：<b>原始来源</b>、<b>整理后的知识</b>、<b>不断生长的连接</b>。</p></section>
+  <header class="site-header library-header">
+    <a class="brand dark-brand" href="index.html" aria-label="行首页"><span>行</span></a>
+    <nav class="main-nav dark-nav" aria-label="主导航">
+      <a class="active" href="reading-paper.html" aria-current="page">reading-paper</a>
+      <a href="reading-other.html">reading-other</a>
+      <a href="https://zixuan-fu.github.io/" target="_blank" rel="noreferrer">about me <i>↗</i></a>
+    </nav>
+  </header>
+  <main class="library-main section-shell" id="paperLibrary">
+    <div class="library-intro">
+      <div>
+        <p class="eyebrow dark-eyebrow">READING PAPER</p>
+        <h1>论文阅读库<span class="title-dot">.</span></h1>
+        <p>循着问题阅读，把思考留在这里。</p>
+      </div>
+      <button class="button button-dark" id="openModal" type="button">+ 添加文章</button>
+    </div>
+    <p class="library-message" id="libraryMessage" role="status" hidden></p>
+    <div class="reading-workspace">
+      <aside class="reading-sidebar" aria-label="阅读分类">
+        <p class="sidebar-label">阅读索引</p>
+        <nav class="category-nav" aria-label="内容类别">
+          <button class="category-button active" data-category="all" aria-pressed="true">全部文章 <span data-count="all">0</span></button>
+          <button class="category-button" data-category="frontier" aria-pressed="false">前沿模型 <span data-count="frontier">0</span></button>
+          <button class="category-button" data-category="rl" aria-pressed="false">RL <span data-count="rl">0</span></button>
+          <button class="category-button" data-category="infra" aria-pressed="false">infra <span data-count="infra">0</span></button>
+          <button class="category-button" data-category="rsi" aria-pressed="false">RSI <span data-count="rsi">0</span></button>
+        </nav>
+        <div class="queue-nav">
+          <button class="category-button" id="queueView" aria-pressed="false"><span>○ &nbsp;待读列表</span><span data-count="queued">0</span></button>
+        </div>
+        <p class="sidebar-note">一篇一篇读，<br>一点一点想。</p>
+      </aside>
+      <section class="reading-collection" aria-labelledby="collectionTitle">
+        <div class="collection-heading">
+          <h2 id="collectionTitle">全部文章</h2>
+          <span id="resultCount" role="status" aria-live="polite"></span>
+        </div>
+        <div class="collection-toolbar">
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" aria-label="搜索阅读库" placeholder="搜索标题、作者、tag 或总结" /></label>
+          <label class="status-filter">阅读状态
+            <select id="statusFilter">
+              <option value="all">全部状态</option><option value="queued">待读</option><option value="reading">在读</option><option value="done">已读</option>
+            </select>
+          </label>
+        </div>
+        <div class="tag-filter-area">
+          <span class="tag-filter-label">TAGS</span>
+          <div class="tag-filters" id="tagFilters" aria-label="按标签筛选"></div>
+          <button class="clear-filters" id="clearFilters" type="button" hidden>清除筛选</button>
+          <p class="tag-filter-hint" id="tagFilterHint" hidden>同时包含所选 tag</p>
+        </div>
+        <div class="paper-list" id="paperList"></div>
+        <p class="collection-footnote">点击标题，进入阅读总结。</p>
+      </section>
+    </div>
   </main>
-  <div class="modal-backdrop" id="paperModal" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="closeModal" aria-label="关闭">×</button><p class="eyebrow dark-eyebrow">NEW ENTRY</p><h2 id="modalTitle">加入一篇论文</h2><form id="paperForm"><label>标题<input required name="title" placeholder="例如：Attention Is All You Need" /></label><label>作者 / 年份<input name="meta" placeholder="Vaswani et al. · 2017" /></label><label>链接<input name="url" type="url" placeholder="https://arxiv.org/..." /></label><label>标签<input name="tags" placeholder="agent, reasoning, survey" /></label><label>一句话摘要<textarea name="summary" rows="3" placeholder="这篇论文最值得留下的是什么？"></textarea></label><div class="modal-actions"><button type="button" class="text-link dark-text" id="cancelModal">取消</button><button class="button button-dark" type="submit">保存论文 <span>→</span></button></div></form></div></div>
-  <script src="assets/app.js"></script>
-</body></html>
+  <noscript><p class="section-shell">请启用 JavaScript 以查看阅读库。</p></noscript>
+  <script type="module" src="assets/library.js"></script>
+</body>
+</html>
