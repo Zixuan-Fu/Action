@@ -2,7 +2,7 @@ import {
   STORAGE_KEY, categories, statuses, defaultPapers, categoryLabel, statusLabel, tagKey,
   normalizeTags, normalizePapers, loadPapers, savePapers, filterPapers, collectTags, sourceInfo,
 } from './reading-store.js';
-import { escapeHtml as esc, renderNotes } from './reading-markdown.js';
+import { escapeHtml as esc, renderNotes } from './reading-markdown.js?v=20261125-markdown';
 
 const $ = selector => document.querySelector(selector);
 const library = $('#paperLibrary');

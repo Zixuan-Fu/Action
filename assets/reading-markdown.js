@@ -1,4 +1,4 @@
-import { Marked, Renderer } from './vendor/marked/marked.esm.js';
+import { Marked, Renderer } from './vendor/marked/marked.esm.js?v=18.3.0';
 
 export function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, char => ({
