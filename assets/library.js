@@ -142,6 +142,39 @@ function clearFilters() {
   renderLibrary();
 }
 
+function notesEditor(id, rows, label) {
+  return `<div class="markdown-editor">
+    <div class="markdown-toolbar" role="group" aria-label="总结编辑模式">
+      <button type="button" data-markdown-mode="write" aria-pressed="true">编写 Markdown</button>
+      <button type="button" data-markdown-mode="preview" aria-pressed="false" aria-controls="${id}Preview">预览</button>
+    </div>
+    <div data-markdown-write>
+      <label for="${id}">${label}（Markdown）</label>
+      <textarea id="${id}" name="notes" rows="${rows}" aria-describedby="${id}Help" placeholder="# 核心观点\n\n写下你的理解、问题和思考。"></textarea>
+    </div>
+    <div id="${id}Preview" class="notes-content markdown-preview" aria-label="Markdown 预览" tabindex="0" hidden></div>
+    <p class="field-help" id="${id}Help">支持标题、加粗、斜体、列表、任务列表、引用、表格、链接、图片和代码块。</p>
+  </div>`;
+}
+
+function bindNotesEditor(editor) {
+  const input = editor.querySelector('textarea');
+  const write = editor.querySelector('[data-markdown-write]');
+  const preview = editor.querySelector('.markdown-preview');
+  const buttons = editor.querySelectorAll('[data-markdown-mode]');
+  function setMode(mode) {
+    const showPreview = mode === 'preview';
+    if (showPreview) preview.innerHTML = input.value.trim()
+      ? renderNotes(input.value)
+      : '<p class="markdown-preview-empty">写下 Markdown 内容后，可以在这里查看排版。</p>';
+    write.hidden = showPreview;
+    preview.hidden = !showPreview;
+    buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.markdownMode === mode)));
+  }
+  buttons.forEach(button => button.addEventListener('click', () => setMode(button.dataset.markdownMode)));
+  return () => setMode('write');
+}
+
 const dialog = document.createElement('dialog');
 dialog.className = 'modal entry-dialog';
 dialog.setAttribute('aria-labelledby', 'modalTitle');
@@ -161,12 +194,13 @@ dialog.innerHTML = `
     <p class="source-preview" id="sourcePreview"></p>
     <label>Tags<input name="tags" placeholder="例如：reasoning, RLVR, agent"></label>
     <p class="field-help">多个 tag 用逗号分隔，一篇文章可以有多个 tag。</p>
-    <label>我的总结<textarea name="notes" rows="6" placeholder="写下你的理解、问题和思考；支持 Markdown。"></textarea></label>
+    ${notesEditor('entryNotesInput', 6, '我的总结')}
     <p class="form-error" role="status" hidden></p>
     <div class="modal-actions"><button class="text-link dark-text" type="button" data-cancel>取消</button><button class="button button-dark" type="submit">保存文章 →</button></div>
   </form>`;
 document.body.append(dialog);
 const form = dialog.querySelector('form');
+const resetEntryNotesEditor = bindNotesEditor(dialog.querySelector('.markdown-editor'));
 let editingId = null;
 
 function updateSourcePreview() {
@@ -183,6 +217,7 @@ function openEntry(paper = null) {
     if (initial[field] !== undefined) form.elements[field].value = initial[field];
   }
   form.elements.tags.value = (paper?.tags || []).join(', ');
+  resetEntryNotesEditor();
   dialog.querySelector('#modalTitle').textContent = paper ? '编辑文章' : '添加文章';
   dialog.querySelector('.form-error').hidden = true;
   updateSourcePreview();
@@ -238,9 +273,7 @@ function renderDetail() {
       <div class="notes-heading"><h2 id="notesTitle">我的总结</h2><button type="button" class="notes-edit" id="editNotes" ${readOnly ? 'disabled' : ''}>${paper.notes.trim() ? '编辑总结' : '写总结'} <span aria-hidden="true">↗</span></button></div>
       <div class="notes-content" id="notesContent">${paper.notes.trim() ? renderNotes(paper.notes) : '<div class="notes-empty"><p>还没有写下这篇文章的总结。</p><span>从一个值得记住的观点，或一个还没想明白的问题开始。</span></div>'}</div>
       <form id="notesForm" class="notes-form" hidden>
-        <label for="notesInput">阅读总结</label>
-        <textarea id="notesInput" rows="17" placeholder="# 核心观点\n\n写下你的理解、问题和思考。"></textarea>
-        <p class="field-help">支持标题、列表、引用、加粗、链接和代码块。</p>
+        ${notesEditor('notesInput', 17, '阅读总结')}
         <p class="form-error" id="notesError" role="status" hidden></p>
         <div class="notes-form-actions"><button type="button" class="text-link dark-text" id="cancelNotes">取消</button><button type="submit" class="button button-dark">保存总结 →</button></div>
       </form>
@@ -251,6 +284,7 @@ function renderDetail() {
     catch (error) { event.target.value = papers.find(item => item.id === paper.id).status; message(error.message); }
   });
   $('#notesInput').value = paper.notes;
+  bindNotesEditor($('#notesForm .markdown-editor'));
   $('#editNotes').addEventListener('click', () => {
     $('#notesContent').hidden = true;
     $('#notesForm').hidden = false;

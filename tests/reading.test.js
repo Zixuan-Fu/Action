@@ -94,9 +94,75 @@ test('summaries render readable headings, lists and code while keeping raw HTML 
   const html = renderNotes('# 核心观点\n\n**计算**与 `数据`\n\n- 第一条\n- 第二条\n\n> 一个问题\n\n```html\n<script>bad()</script>\n```\n\n<img src=x onerror=bad()>');
   assert.match(html, /<h2>核心观点<\/h2>/);
   assert.match(html, /<strong>计算<\/strong>/);
-  assert.match(html, /<ul><li>第一条<\/li><li>第二条<\/li><\/ul>/);
+  assert.match(html, /<ul>\s*<li>第一条<\/li>\s*<li>第二条<\/li>\s*<\/ul>/);
   assert.match(html, /&lt;script&gt;/);
   assert.doesNotMatch(html, /<img|<script/);
   assert.doesNotMatch(renderNotes('[bad](javascript:alert(1))'), /<a /);
   assert.match(renderNotes('[paper](https://arxiv.org/abs/1706.03762)'), /href="https:\/\/arxiv.org\/abs\/1706.03762"/);
+});
+
+test('Markdown renders tables, tasks, nested lists and inline formatting together', () => {
+  const html = renderNotes(`## 方法比较
+
+| 方法 | 结果 |
+| :--- | ---: |
+| **RLVR** | 42 |
+
+- [x] 阅读 *方法*
+- [ ] 复现 ~~旧实验~~
+  - 嵌套的 **重点**
+
+> 第一行
+>
+> 第二段
+
+---
+
+~~~python
+print("<reward>")
+~~~`);
+  assert.match(html, /<table>[\s\S]*<th[\s\S]*方法[\s\S]*<strong>RLVR<\/strong>/);
+  assert.match(html, /<input[^>]*checked[^>]*disabled[^>]*type="checkbox"/);
+  assert.match(html, /<em>方法<\/em>/);
+  assert.match(html, /<del>旧实验<\/del>/);
+  assert.match(html, /<li>[\s\S]*<ul>\s*<li>嵌套的 <strong>重点<\/strong>/);
+  assert.match(html, /<blockquote>\s*<p>第一行<\/p>\s*<p>第二段<\/p>/);
+  assert.match(html, /<hr>/);
+  assert.match(html, /class="language-python"/);
+  assert.match(html, /&lt;reward&gt;/);
+});
+
+test('reference links, images, escaped Markdown and all heading levels remain readable', () => {
+  const html = renderNotes(`# 标题
+## 二级
+### 三级
+#### 四级
+##### 五级
+###### 六级
+
+[论文][source] 和 ![方法示意](https://example.com/figure.png "图一")
+
+\\*保留星号\\*
+
+[source]: https://arxiv.org/abs/1706.03762 "原论文"`);
+  assert.match(html, /<h2>标题<\/h2>/);
+  assert.match(html, /<h6>六级<\/h6>/);
+  assert.match(html, /href="https:\/\/arxiv.org\/abs\/1706.03762" title="原论文"/);
+  assert.match(html, /<img src="https:\/\/example.com\/figure.png" alt="方法示意" title="图一"/);
+  assert.match(html, /\*保留星号\*/);
+});
+
+test('Markdown keeps executable HTML and unsafe link or image schemes inert', () => {
+  const html = renderNotes(`<script>alert(1)</script>
+
+<iframe src="https://example.com"></iframe>
+
+[run](javascript:alert(1))
+[encoded](jav&#x61;script:alert(1))
+![svg](data:image/svg+xml,bad)
+![event](https://example.com/image.png "x\\" onerror=\\"bad()")`);
+  assert.doesNotMatch(html, /<(script|iframe|svg)\b/);
+  assert.doesNotMatch(html, /(?:href|src)="(?:javascript|data):/i);
+  assert.doesNotMatch(html, /" onerror="/);
+  assert.match(html, /&lt;script&gt;/);
 });

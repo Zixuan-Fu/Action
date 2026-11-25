@@ -94,15 +94,29 @@
 .notes-edit span{margin-left:5px}
 .notes-content{color:#4f5a46;font-size:15px;line-height:2;overflow-wrap:anywhere}
 .notes-content p{margin:0 0 1.3em}
-.notes-content h2,.notes-content h3,.notes-content h4{font-weight:500;line-height:1.6;color:#35452e;margin:1.9em 0 .8em}
-.notes-content h2{font-size:23px}.notes-content h3{font-size:20px}.notes-content h4{font-size:17px}
+.notes-content h2,.notes-content h3,.notes-content h4,.notes-content h5,.notes-content h6{font-weight:500;line-height:1.6;color:#35452e;margin:1.9em 0 .8em}
+.notes-content h2{font-size:23px}.notes-content h3{font-size:20px}.notes-content h4{font-size:17px}.notes-content h5,.notes-content h6{font-size:15px}
+.notes-content>:first-child{margin-top:0}
 .notes-content ul,.notes-content ol{padding-left:1.6em;margin:0 0 1.5em}
 .notes-content li{padding-left:.2em;margin:.4em 0}
+.notes-content li>ul,.notes-content li>ol{margin:.3em 0 .7em}
+.notes-content li>p{margin:.4em 0}
+.notes-content li:has(>input[type=checkbox]),.notes-content li:has(>p>input[type=checkbox]){list-style:none}
+.notes-content input[type=checkbox]{width:14px;height:14px;min-height:0;accent-color:#7c8d61;margin:0 .5em 0 0;padding:0;vertical-align:middle}
 .notes-content blockquote{font-size:inherit;letter-spacing:0;border-left:2px solid #aebd96;padding:6px 20px;margin:1.8em 0;color:#7a886b;max-width:none}
+.notes-content blockquote>:last-child{margin-bottom:0}
+.notes-content blockquote+p{font-family:inherit;font-size:inherit;color:inherit}
 .notes-content a{color:#69864d;text-decoration:underline;text-underline-offset:4px}
 .notes-content code{font-family:var(--mono);font-size:.85em;background:#e9ecdf;padding:2px 5px}
-.notes-content pre{padding:20px;background:#e9ecdf;overflow-x:auto;line-height:1.8}
+.notes-content pre{padding:20px;background:#e9ecdf;overflow-x:auto;line-height:1.8;white-space:pre;overflow-wrap:normal}
 .notes-content pre code{padding:0;overflow-wrap:normal}
+.notes-content img{display:block;max-width:100%;height:auto;margin:1.5em auto}
+.notes-content hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+.markdown-table-scroll{overflow-x:auto;margin:1.5em 0;border:1px solid #d2dac6}
+.notes-content table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.8}
+.notes-content th,.notes-content td{border-bottom:1px solid #d2dac6;padding:10px 15px;text-align:left;min-width:100px}
+.notes-content th{background:#e9ecdf;color:#536446;font-weight:500}
+.notes-content tr:last-child td{border-bottom:0}
 .notes-empty{padding:25px 0 45px}
 .notes-empty p{font-size:18px;color:#909982;margin-bottom:8px}
 .notes-empty span{font-size:12px;color:#a0a792}
@@ -110,6 +124,17 @@
 .notes-form textarea{display:block;width:100%;border:1px solid #c6d0b7;background:rgba(246,244,237,.7);padding:20px;font-family:var(--serif);font-size:14px;color:#46563c;line-height:1.9;resize:vertical;border-radius:0}
 .notes-form textarea:focus{outline:1px solid #98ac7b}
 .notes-form .field-help{margin:10px 0}
+.markdown-editor{min-width:0}
+.markdown-toolbar{display:flex;gap:18px;border-bottom:1px solid #c6d0b7;margin-bottom:16px}
+.markdown-toolbar button{font-family:var(--mono);font-size:11px;border:0;border-bottom:2px solid transparent;background:none;color:#929c85;padding:9px 0 11px;cursor:pointer}
+.markdown-toolbar button[aria-pressed=true]{color:#536c41;border-bottom-color:#7c8d61}
+.markdown-toolbar button:focus-visible{outline:2px solid #95a87c;outline-offset:3px}
+.markdown-preview{min-height:200px;border:1px solid #c6d0b7;padding:22px;background:rgba(246,244,237,.7)}
+.markdown-preview-empty{color:#929c85;font-size:13px}
+.entry-dialog .markdown-editor label{display:block;margin-bottom:9px}
+.entry-dialog .markdown-editor textarea{display:block;width:100%;padding:12px;border:1px solid #c6d0b7;line-height:1.9;resize:vertical;font-family:var(--mono);font-size:12px}
+.entry-dialog .markdown-editor .field-help{margin:10px 0 0}
+.notes-form .markdown-editor textarea{font-family:var(--mono);font-size:13px}
 .notes-form-actions{display:flex;align-items:center;justify-content:flex-end;gap:24px;margin-top:20px}
 .library-database button:focus-visible,.library-database a:focus-visible,.paper-detail-page button:focus-visible,.paper-detail-page a:focus-visible{outline:2px solid #95a87c;outline-offset:4px}
 [hidden]{display:none!important}
